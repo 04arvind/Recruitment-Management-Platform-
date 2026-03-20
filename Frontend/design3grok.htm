@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RecruitPro RMS</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Icons (Heroicons) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/heroicons/2.0.18/heroicons.min.js"></script>
+  <style>
+    .kanban-column { min-height: 400px; }
+    .candidate-card { cursor: grab; }
+  </style>
+</head>
+<body class="bg-gray-100 font-sans">
+
+  <!-- Sidebar + Main Content -->
+  <div class="flex h-screen">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-blue-800 text-white flex flex-col">
+      <div class="p-6 text-2xl font-bold">RecruitPro RMS</div>
+      <nav class="flex-1 px-4">
+        <ul>
+          <li class="mb-2"><a href="#" onclick="showSection('dashboard')" class="block py-3 px-4 rounded hover:bg-blue-700 flex items-center"><svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg> Dashboard</a></li>
+          <li class="mb-2"><a href="#" onclick="showSection('jobs')" class="block py-3 px-4 rounded hover:bg-blue-700 flex items-center"><svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg> Jobs</a></li>
+          <li class="mb-2"><a href="#" onclick="showSection('pipeline')" class="block py-3 px-4 rounded hover:bg-blue-700 flex items-center"><svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg> Pipeline</a></li>
+          <li class="mb-2"><a href="#" class="block py-3 px-4 rounded hover:bg-blue-700 flex items-center"><svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg> Candidates</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 overflow-y-auto">
+      <header class="bg-white shadow p-6 flex justify-between items-center">
+        <h1 class="text-3xl font-bold text-gray-800" id="page-title">Dashboard</h1>
+        <input type="text" placeholder="Search candidates/jobs..." class="px-4 py-2 border rounded-lg">
+      </header>
+
+      <!-- Sections -->
+      <section id="dashboard" class="p-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+          <div class="bg-white p-6 rounded-lg shadow"><h3 class="text-gray-500">Open Positions</h3><p class="text-3xl font-bold text-blue-600">12</p></div>
+          <div class="bg-white p-6 rounded-lg shadow"><h3 class="text-gray-500">Active Candidates</h3><p class="text-3xl font-bold text-green-600">156</p></div>
+          <div class="bg-white p-6 rounded-lg shadow"><h3 class="text-gray-500">Interviews This Week</h3><p class="text-3xl font-bold text-purple-600">28</p></div>
+          <div class="bg-white p-6 rounded-lg shadow"><h3 class="text-gray-500">Offer Acceptance</h3><p class="text-3xl font-bold text-orange-600">82%</p></div>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow">
+          <canvas id="funnelChart"></canvas>
+        </div>
+      </section>
+
+      <section id="jobs" class="p-8 hidden">
+        <button class="bg-blue-600 text-white px-4 py-2 rounded mb-6">+ Create New Job</button>
+        <table class="w-full bg-white shadow rounded-lg">
+          <thead class="bg-gray-200"><tr><th class="p-4 text-left">Title</th><th>Department</th><th>Applicants</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr class="border-b"><td class="p-4">Senior Developer</td><td>Engineering</td><td>45</td><td><span class="bg-green-200 text-green-800 px-2 py-1 rounded">Open</span></td></tr>
+            <!-- Add more rows -->
+          </tbody>
+        </table>
+      </section>
+
+      <section id="pipeline" class="p-8 hidden">
+        <h2 class="text-2xl font-bold mb-6">Candidate Pipeline</h2>
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-6 overflow-x-auto">
+          <div class="bg-gray-200 p-4 rounded-lg kanban-column" ondrop="drop(event)" ondragover="allowDrop(event)"><h3 class="font-bold mb-4">New Applications</h3><div class="candidate-card bg-white p-4 mb-4 rounded shadow" draggable="true" ondragstart="drag(event)">John Doe<br>Senior Dev</div></div>
+          <div class="bg-gray-200 p-4 rounded-lg kanban-column" ondrop="drop(event)" ondragover="allowDrop(event)"><h3 class="font-bold mb-4">Screened</h3></div>
+          <div class="bg-gray-200 p-4 rounded-lg kanban-column" ondrop="drop(event)" ondragover="allowDrop(event)"><h3 class="font-bold mb-4">Interview</h3></div>
+          <div class="bg-gray-200 p-4 rounded-lg kanban-column" ondrop="drop(event)" ondragover="allowDrop(event)"><h3 class="font-bold mb-4">Offer</h3></div>
+          <div class="bg-gray-200 p-4 rounded-lg kanban-column" ondrop="drop(event)" ondragover="allowDrop(event)"><h3 class="font-bold mb-4">Hired</h3></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    function showSection(id) {
+      document.querySelectorAll('section').forEach(s => s.classList.add('hidden'));
+      document.getElementById(id).classList.remove('hidden');
+      document.getElementById('page-title').textContent = id.charAt(0).toUpperCase() + id.slice(1);
+    }
+
+    // Simple Kanban Drag & Drop
+    function allowDrop(ev) { ev.preventDefault(); }
+    function drag(ev) { ev.dataTransfer.setData("text", ev.target.outerHTML); }
+    function drop(ev) {
+      ev.preventDefault();
+      const data = ev.dataTransfer.getData("text");
+      ev.target.appendChild(document.createElement('div')).outerHTML = data; // Append cloned card
+    }
+
+    // Chart
+    const ctx = document.getElementById('funnelChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'bar',
+      data: { labels: ['Applied', 'Screened', 'Interviewed', 'Offered', 'Hired'], datasets: [{ label: 'Candidates', data: [200, 150, 80, 30, 15], backgroundColor: '#007BFF' }] }
+    });
+  </script>
+</body>
+</html>

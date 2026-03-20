@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RecruiteIQ - Next-Gen AI-Powered Recruitment Platform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2E5BFF;
+            --secondary: #8C30F5;
+            --accent: #00D9C0;
+            --dark: #0F1419;
+            --gray-100: #F7F9FC;
+            --gray-200: #E4E9F2;
+            --gray-300: #C5CEE0;
+            --gray-600: #6C7A93;
+            --gray-800: #2C3E50;
+            --success: #00C48C;
+            --warning: #FFA900;
+            --danger: #FF4757;
+            --white: #FFFFFF;
+            --shadow-sm: 0 2px 8px rgba(46, 91, 255, 0.08);
+            --shadow-md: 0 8px 24px rgba(46, 91, 255, 0.12);
+            --shadow-lg: 0 16px 48px rgba(46, 91, 255, 0.16);
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--gray-100);
+            color: var(--dark);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--gray-200);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            animation: slideDown 0.6s ease;
+            box-shadow: var(--shadow-sm);
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-family: 'Sora', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--gray-800);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-cta {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 0.85rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            border: none;
+            font-size: 0.95rem;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #F7F9FC 0%, #E8EFFF 50%, #F0F4FF 100%);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(46, 91, 255, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            top: -300px;
+            right: -200px;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(140, 48, 245, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            bottom: -200px;
+            left: -150px;
+            animation: float 15s infinite ease-in-out reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(30px, -30px) rotate(120deg); }
+            66% { transform: translate(-20px, 20px) rotate(240deg); }
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-text h1 {
+            font-family: 'Sora', sans-serif;
+            font-size: 4.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--dark) 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .hero-text .highlight {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-text p {
+            font-size: 1.3rem;
+            color: var(--gray-600);
+            margin-bottom: 2.5rem;
+            animation: fadeInUp 0.8s ease 0.2s backwards;
+            line-height: 1.8;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1.5rem;
+            animation: fadeInUp 0.8s ease 0.4s backwards;
+            flex-wrap: wrap;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 3rem;
+            margin-top: 3rem;
+            animation: fadeInUp 0.8s ease 0.6s backwards;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: block;
+        }
+
+        .hero-stat-label {
+            color: var(--gray-600);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        /* AI Practice Section */
+        .ai-practice-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 8rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ai-practice-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-header h2 {
+            font-family: 'Sora', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .section-header p {
+            font-size: 1.25rem;
+            color: rgba(255,255,255,0.9);
+            line-height: 1.8;
+        }
+
+        .ai-interview-simulator {
+            background: white;
+            border-radius: 24px;
+            padding: 3rem;
+            max-width: 900px;
+            margin: 0 auto;
+            box-shadow: 0 24px 64px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .ai-avatar {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            margin: 0 auto 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 32px rgba(46, 91, 255, 0.3);
+            animation: avatarPulse 2s infinite;
+        }
+
+        @keyframes avatarPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 8px 32px rgba(46, 91, 255, 0.3); }
+            50% { transform: scale(1.05); box-shadow: 0 12px 48px rgba(46, 91, 255, 0.4); }
+        }
+
+        .chat-interface {
+            height: 400px;
+            overflow-y: auto;
+            border: 2px solid var(--gray-200);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background: var(--gray-100);
+        }
+
+        .chat-message {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            animation: messageSlide 0.4s ease;
+        }
+
+        @keyframes messageSlide {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .chat-message.ai {
+            flex-direction: row;
+        }
+
+        .chat-message.user {
+            flex-direction: row-reverse;
+        }
+
+        .message-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .message-content {
+            background: white;
+            padding: 1rem 1.5rem;
+            border-radius: 16px;
+            max-width: 70%;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .chat-message.user .message-content {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+
+        .chat-input-area {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            border: 2px solid var(--gray-200);
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .chat-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(46, 91, 255, 0.1);
+        }
+
+        /* Chatbot */
+        .chatbot-bubble {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 999;
+        }
+
+        .chatbot-trigger {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 8px 32px rgba(46, 91, 255, 0.4);
+            transition: all 0.3s;
+            animation: chatbotPulse 2s infinite;
+        }
+
+        @keyframes chatbotPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .chatbot-trigger:hover {
+            transform: scale(1.15);
+            box-shadow: 0 12px 48px rgba(46, 91, 255, 0.6);
+        }
+
+        .chatbot-window {
+            position: fixed;
+            bottom: 120px;
+            right: 30px;
+            width: 400px;
+            height: 600px;
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 24px 64px rgba(0, 0, 0, 0.3);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            animation: slideUp 0.4s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .chatbot-window.active {
+            display: flex;
+        }
+
+        .chatbot-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .chatbot-close {
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .chatbot-close:hover {
+            transform: rotate(90deg);
+        }
+
+        .chatbot-messages {
+            flex: 1;
+            padding: 1.5rem;
+            overflow-y: auto;
+            background: var(--gray-100);
+        }
+
+        .chatbot-input-area {
+            padding: 1.5rem;
+            border-top: 1px solid var(--gray-200);
+            background: white;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 6rem 0;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand {
+            font-family: 'Sora', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .footer-desc {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.8;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links h4 {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.8rem;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .chatbot-window {
+                width: calc(100vw - 40px);
+                right: 20px;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-content">
+            <div class="logo">
+                <div class="logo-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                        <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/>
+                    </svg>
+                </div>
+                RecruiteIQ
+            </div>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#ai-practice">AI Practice</a></li>
+                <li><a href="#analytics">Analytics</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+            </ul>
+            <div class="nav-cta">
+                <a href="#login" class="btn btn-outline">Sign In</a>
+                <a href="#demo" class="btn btn-primary">Start Free Trial</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Hire <span class="highlight">Smarter</span> with AI-Powered Recruitment</h1>
+                    <p>The world's most advanced recruitment platform trusted by 100,000+ companies. Automate hiring, conduct AI interviews, and build your dream team faster.</p>
+                    <div class="hero-cta">
+                        <a href="#" class="btn btn-primary" style="padding: 1.2rem 3rem; font-size: 1.1rem;">Start Free Trial</a>
+                        <a href="#" class="btn btn-outline" style="padding: 1.2rem 3rem; font-size: 1.1rem;">Watch Demo</a>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="hero-stat">
+                            <span class="hero-stat-value">500K+</span>
+                            <span class="hero-stat-label">Active Users</span>
+                        </div>
+                        <div class="hero-stat">
+                            <span class="hero-stat-value">1M+</span>
+                            <span class="hero-stat-label">Hires Made</span>
+                        </div>
+                        <div class="hero-stat">
+                            <span class="hero-stat-value">95%</span>
+                            <span class="hero-stat-label">Success Rate</span>
+                        </div>
+                    </div>
+                </div>
+                <div style="position: relative; animation: fadeInUp 0.8s ease 0.6s backwards;">
+                    <div style="background: white; border-radius: 24px; padding: 2.5rem; box-shadow: 0 16px 48px rgba(46, 91, 255, 0.16);">
+                        <h3 style="margin-bottom: 0.5rem; color: var(--dark);">Your Recruitment Hub</h3>
+                        <p style="color: var(--gray-600); margin-bottom: 2rem;">All-in-one platform</p>
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+                            <div style="background: var(--gray-100); padding: 1.5rem; border-radius: 16px; transition: all 0.3s; cursor: pointer;">
+                                <div style="font-size: 2rem; font-weight: 700; color: var(--primary);">247</div>
+                                <div style="color: var(--gray-600); font-size: 0.9rem; margin-top: 0.5rem;">Open Positions</div>
+                            </div>
+                            <div style="background: var(--gray-100); padding: 1.5rem; border-radius: 16px; transition: all 0.3s; cursor: pointer;">
+                                <div style="font-size: 2rem; font-weight: 700; color: var(--secondary);">1,842</div>
+                                <div style="color: var(--gray-600); font-size: 0.9rem; margin-top: 0.5rem;">Candidates</div>
+                            </div>
+                            <div style="background: var(--gray-100); padding: 1.5rem; border-radius: 16px; transition: all 0.3s; cursor: pointer;">
+                                <div style="font-size: 2rem; font-weight: 700; color: var(--accent);">156</div>
+                                <div style="color: var(--gray-600); font-size: 0.9rem; margin-top: 0.5rem;">Interviews Today</div>
+                            </div>
+                            <div style="background: var(--gray-100); padding: 1.5rem; border-radius: 16px; transition: all 0.3s; cursor: pointer;">
+                                <div style="font-size: 2rem; font-weight: 700; color: var(--success);">87%</div>
+                                <div style="color: var(--gray-600); font-size: 0.9rem; margin-top: 0.5rem;">Success Rate</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Practice Interview Section -->
+    <section class="ai-practice-section" id="ai-practice">
+        <div class="container">
+            <div class="section-header">
+                <h2>Practice with AI Interviewer</h2>
+                <p>Master your interview skills with our advanced AI that simulates real interview scenarios. Get instant feedback and improve your responses.</p>
+            </div>
+            
+            <div class="ai-interview-simulator">
+                <div class="ai-avatar">
+                    <svg width="60" height="60" viewBox="0 0 24 24" fill="white">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                    </svg>
+                </div>
+                
+                <div class="chat-interface" id="chatInterface">
+                    <div class="chat-message ai">
+                        <div class="message-avatar">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                                <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
+                            </svg>
+                        </div>
+                        <div class="message-content">
+                            <p><strong>AI Interviewer:</strong> Hello! I'm your AI Interview Coach. I'll help you practice for your upcoming interviews. What position are you preparing for?</p>
+                        </div>
+                    </div>
+                    <div class="chat-message user">
+                        <div class="message-avatar">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                            </svg>
+                        </div>
+                        <div class="message-content">
+                            <p>I'm preparing for a Senior Software Engineer role at a tech startup.</p>
+                        </div>
+                    </div>
+                    <div class="chat-message ai">
+                        <div class="message-avatar">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                                <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
+                            </svg>
+                        </div>
+                        <div class="message-content">
+                            <p><strong>AI Interviewer:</strong> Excellent! Let's start with a technical question: Can you explain the difference between REST and GraphQL APIs, and when would you choose one over the other? Please use the voice button or type your answer below.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="chat-input-area">
+                    <input type="text" class="chat-input" placeholder="Type your answer or click the mic to speak..." id="aiChatInput">
+                    <button class="btn btn-primary" onclick="sendAIMessage()" style="padding: 1rem 2rem;">Send</button>
+                </div>
+                
+                <div style="margin-top: 2rem; padding: 1.5rem; background: var(--gray-100); border-radius: 12px;">
+                    <p style="color: var(--gray-600); margin-bottom: 1rem;"><strong>✨ Pro Tip:</strong> This AI interviewer adapts to your responses and provides real-time feedback on your communication style, technical accuracy, and confidence level.</p>
+                    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                        <span style="padding: 0.5rem 1rem; background: white; border-radius: 8px; font-size: 0.9rem;">🎯 Real-time feedback</span>
+                        <span style="padding: 0.5rem 1rem; background: white; border-radius: 8px; font-size: 0.9rem;">🎤 Voice recognition</span>
+                        <span style="padding: 0.5rem 1rem; background: white; border-radius: 8px; font-size: 0.9rem;">📊 Performance tracking</span>
+                        <span style="padding: 0.5rem 1rem; background: white; border-radius: 8px; font-size: 0.9rem;">🔄 Unlimited practice</span>
+                    </div>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 4rem; position: relative; z-index: 1;">
+                <div style="text-align: center; color: white; padding: 2rem; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border-radius: 16px; transition: all 0.4s;">
+                    <div style="width: 60px; height: 60px; background: rgba(255, 255, 255, 0.2); border-radius: 16px; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center;">
+                        <svg width="30" height="30" viewBox="0 0 24 24" fill="white">
+                            <path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/>
+                        </svg>
+                    </div>
+                    <h4 style="margin-bottom: 0.5rem;">Real-Time Feedback</h4>
+                    <p style="opacity: 0.9; font-size: 0.9rem;">Get instant AI-powered feedback on your responses</p>
+                </div>
+                <div style="text-align: center; color: white; padding: 2rem; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border-radius: 16px; transition: all 0.4s;">
+                    <div style="width: 60px; height: 60px; background: rgba(255, 255, 255, 0.2); border-radius: 16px; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center;">
+                        <svg width="30" height="30" viewBox="0 0 24 24" fill="white">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                    </div>
+                    <h4 style="margin-bottom: 0.5rem;">Voice Recognition</h4>
+                    <p style="opacity: 0.9; font-size: 0.9rem;">Practice speaking with advanced voice technology</p>
+                </div>
+                <div style="text-align: center; color: white; padding: 2rem; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border-radius: 16px; transition: all 0.4s;">
+                    <div style="width: 60px; height: 60px; background: rgba(255, 255, 255, 0.2); border-radius: 16px; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center;">
+                        <svg width="30" height="30" viewBox="0 0 24 24" fill="white">
+                            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+                        </svg>
+                    </div>
+                    <h4 style="margin-bottom: 0.5rem;">Performance Analytics</h4>
+                    <p style="opacity: 0.9; font-size: 0.9rem;">Track your improvement over time</p>
+                </div>
+                <div style="text-align: center; color: white; padding: 2rem; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border-radius: 16px; transition: all 0.4s;">
+                    <div style="width: 60px; height: 60px; background: rgba(255, 255, 255, 0.2); border-radius: 16px; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center;">
+                        <svg width="30" height="30" viewBox="0 0 24 24" fill="white">
+                            <path d="M12 2l-5.5 9h11L12 2zm0 3.84L13.93 9h-3.87L12 5.84zM17.5 13c-2.49 0-4.5 2.01-4.5 4.5s2.01 4.5 4.5 4.5 4.5-2.01 4.5-4.5-2.01-4.5-4.5-4.5zm0 7c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5zM3 21.5h8v-8H3v8zm2-6h4v4H5v-4z"/>
+                        </svg>
+                    </div>
+                    <h4 style="margin-bottom: 0.5rem;">Custom Scenarios</h4>
+                    <p style="opacity: 0.9; font-size: 0.9rem;">Role-specific interview simulations</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Chatbot -->
+    <div class="chatbot-bubble">
+        <div class="chatbot-trigger" onclick="toggleChatbot()">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="white">
+                <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/>
+            </svg>
+        </div>
+        
+        <div class="chatbot-window" id="chatbotWindow">
+            <div class="chatbot-header">
+                <div>
+                    <h4>AI HR Assistant</h4>
+                    <p style="font-size: 0.85rem; opacity: 0.9;">Online • Always here to help</p>
+                </div>
+                <div class="chatbot-close" onclick="toggleChatbot()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="chatbot-messages">
+                <div class="chat-message ai">
+                    <div class="message-avatar">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                            <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
+                        </svg>
+                    </div>
+                    <div class="message-content">
+                        <p>👋 Hi! I'm your AI HR Assistant. How can I help you today?</p>
+                        <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem;">
+                            <button style="padding: 0.5rem 1rem; background: var(--primary); color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 0.85rem;">Schedule Interview</button>
+                            <button style="padding: 0.5rem 1rem; background: var(--primary); color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 0.85rem;">Check Status</button>
+                            <button style="padding: 0.5rem 1rem; background: var(--primary); color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 0.85rem;">Get Support</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="chatbot-input-area">
+                <input type="text" class="chat-input" placeholder="Type your message..." style="margin-bottom: 0;">
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <div class="footer-brand">RecruiteIQ</div>
+                    <p class="footer-desc">The next-generation AI-powered recruitment platform trusted by thousands of companies worldwide to hire better, faster, and smarter.</p>
+                    <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                        <a href="#" style="width: 40px; height: 40px; background: rgba(255,255,255,0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center; transition: all 0.3s;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                                <path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.70 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"/>
+                            </svg>
+                        </a>
+                        <a href="#" style="width: 40px; height: 40px; background: rgba(255,255,255,0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center; transition: all 0.3s;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <ul class="footer-links">
+                        <h4>Product</h4>
+                        <li><a href="#">Features</a></li>
+                        <li><a href="#">Pricing</a></li>
+                        <li><a href="#">Integrations</a></li>
+                        <li><a href="#">Updates</a></li>
+                        <li><a href="#">Mobile App</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <ul class="footer-links">
+                        <h4>Resources</h4>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">API Reference</a></li>
+                        <li><a href="#">Support</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Webinars</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <ul class="footer-links">
+                        <h4>Company</h4>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Privacy</a></li>
+                        <li><a href="#">Terms</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 RecruiteIQ. All rights reserved. Built with ❤️ for modern recruiters.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Chatbot toggle
+        function toggleChatbot() {
+            const chatbotWindow = document.getElementById('chatbotWindow');
+            chatbotWindow.classList.toggle('active');
+        }
+
+        // AI Chat functionality
+        function sendAIMessage() {
+            const input = document.getElementById('aiChatInput');
+            const chatInterface = document.getElementById('chatInterface');
+            
+            if (input.value.trim() === '') return;
+            
+            // Add user message
+            const userMsg = document.createElement('div');
+            userMsg.className = 'chat-message user';
+            userMsg.innerHTML = `
+                <div class="message-avatar">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                    </svg>
+                </div>
+                <div class="message-content">
+                    <p>${input.value}</p>
+                </div>
+            `;
+            chatInterface.appendChild(userMsg);
+            
+            input.value = '';
+            chatInterface.scrollTop = chatInterface.scrollHeight;
+            
+            // Simulate AI response
+            setTimeout(() => {
+                const aiMsg = document.createElement('div');
+                aiMsg.className = 'chat-message ai';
+                aiMsg.innerHTML = `
+                    <div class="message-avatar">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                            <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
+                        </svg>
+                    </div>
+                    <div class="message-content">
+                        <p><strong>AI Interviewer:</strong> That's a great answer! Your explanation demonstrates strong technical knowledge. Let me ask a follow-up: How would you handle API versioning in a production environment?</p>
+                    </div>
+                `;
+                chatInterface.appendChild(aiMsg);
+                chatInterface.scrollTop = chatInterface.scrollHeight;
+            }, 1500);
+        }
+
+        // Allow Enter key to send message
+        document.getElementById('aiChatInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendAIMessage();
+            }
+        });
+
+        // Smooth scroll animation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Animate on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Card hover effects
+        document.querySelectorAll('[style*="transition"]').forEach(el => {
+            el.addEventListener('mouseenter', function() {
+                if (this.style.transform.includes('translateY')) {
+                    this.style.transform = 'translateY(-5px)';
+                }
+            });
+            el.addEventListener('mouseleave', function() {
+                if (this.style.transform.includes('translateY')) {
+                    this.style.transform = 'translateY(0)';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
