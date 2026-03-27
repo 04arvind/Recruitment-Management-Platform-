@@ -1,4 +1,5 @@
 const Job = require('../models/Job');
+const Profile = require('../models/Profile');
 
 exports.getAllJobs = async(req,res)=>{
     try {
@@ -25,7 +26,8 @@ exports.getAllJobs = async(req,res)=>{
 
 exports.applyToJobs = async(req,res)=>{
     try {
-        const { job_id } = req.query;
+        // const { job_id } = req.query;
+        const { job_id } = req.body;
         if(!job_id){
             return res.status(400).json({
                 success:false,
@@ -39,15 +41,34 @@ exports.applyToJobs = async(req,res)=>{
                 message:'Job not found'
             });
         }
-        if(job.applicants.includes(req.UserId)){
+        console.log("User applying:", req.userId);
+        console.log("Applicants:", job.applicants);
+
+         const alreadyApplied = job.applicants.some(
+            (id) => id&& id.toString() === req.userId.toString()
+        );
+        if(alreadyApplied){
             return res.status(400).json({
                 success:false,
                 message:'You have already applied to this job'
             });
         }
-        job.applicants.push(req.UserId);
+
+        // if(job.applicants.includes(req.userId)){
+        //     return res.status(400).json({
+        //         success:false,
+        //         message:'You have already applied to this job'
+        //     });
+        // }
+
+        job.applicants.push(req.userId);
         job.totalApplications = job.applicants.length;
         await job.save();
+
+        await Profile.findOneAndUpdate(
+            {applicant : req.userId},
+            {$addToSet : {appliedJobs : job_id}}
+        );
 
         res.status(200).json({
             success:true,
