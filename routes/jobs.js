@@ -7,6 +7,6 @@ const { auth, isApplicant } = require('../middleware/auth');
 router.get('/jobs', auth, jobController.getAllJobs);
 
 // GET /jobs/apply - Apply to a job (Applicants only)
-router.get('/jobs/apply', auth, isApplicant, jobController.applyToJobs);
+router.post('/jobs/apply', auth, isApplicant, jobController.applyToJobs);
 
 module.exports = router;
